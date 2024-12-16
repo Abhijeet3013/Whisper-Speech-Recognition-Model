@@ -1,0 +1,31 @@
+# Install the Whisper library directly from the GitHub repository.
+# This ensures you have the latest version of Whisper for transcription tasks.
+!pip install git+https://github.com/openai/whisper.git
+
+# Update the package list on your system and install FFmpeg.
+# FFmpeg is required for audio processing (converting and handling audio files).
+!sudo apt update && sudo apt install ffmpeg
+
+# Use the Whisper CLI to transcribe an audio file (Recording (2).mp3) using the "medium" model.
+# Replace "medium" with the desired model size (e.g., tiny, base, small, medium, large).
+!whisper "/content/Recording (2).mp3" --model medium
+
+# Display the help options for the Whisper CLI.
+# This shows all available commands and usage instructions for the Whisper tool.
+!whisper -h
+
+# Import the Whisper library into your Python script.
+# This allows programmatic access to Whisper's transcription capabilities.
+import whisper
+
+# Load the "base" model for Whisper.
+# You can choose other model sizes depending on the desired accuracy and performance.
+model = whisper.load_model("base")
+
+# Transcribe the given audio file (Recording.mp3) into text.
+# The fp16=False option disables half-precision floating-point computations for better compatibility on some systems.
+result = model.transcribe("/content/Recording.mp3", fp16=False)
+
+# Print the transcribed text from the audio file.
+# The result is stored in a dictionary; "text" contains the transcribed content.
+print(result["text"])
